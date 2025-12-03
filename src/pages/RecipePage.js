@@ -84,9 +84,14 @@ function RecipePage() {
     const fetchLikeStatus = async () => {
       if (!userId) return;
       try {
-        const res = await fetch(
-          `${process.env.REACT_APP_API_URL}/api/likes/${id}/${userId}`
-        );
+        const res = await fetch(`${process.env.REACT_APP_API_URL}/api/likes`, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+          body: JSON.stringify({ recipe: id, user: userId }),
+        });
         const data = await res.json();
         setLiked(data.liked);
       } catch (err) {}
@@ -108,7 +113,7 @@ function RecipePage() {
     }
 
     try {
-      const res = await fetch(`${process.env.REACT_APP_API_URL}/api/likes", {
+      const res = await fetch(`${process.env.REACT_APP_API_URL}/api/likes`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -126,9 +131,14 @@ function RecipePage() {
 
   const handleShowLikes = async () => {
     try {
-      const res = await fetch(
-        `${process.env.REACT_APP_API_URL}/api/likes/users/${id}`
-      );
+      const res = await fetch(`${process.env.REACT_APP_API_URL}/api/likes`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify({ recipe: id, user: userId }),
+      });
       const data = await res.json();
       setLikeUsers(data.users || []);
       setShowLikes(true);
