@@ -41,7 +41,7 @@ function ProfilePage() {
 
     const fetchProfile = async () => {
       try {
-        const res = await fetch("http://localhost:5000/api/users/me", {
+        const res = await fetch(`${process.env.REACT_APP_API_URL}/api/users/me", {
           headers: { Authorization: `Bearer ${token}` },
         });
         if (!res.ok) throw new Error("Unauthorized or failed to fetch user");
@@ -60,10 +60,10 @@ function ProfilePage() {
     const fetchMyRecipes = async () => {
       try {
         const res = await fetch(
-          "http://localhost:5000/api/recipes/my-recipes",
+          `${process.env.REACT_APP_API_URL}/api/recipes/my-recipes",
           {
             headers: { Authorization: `Bearer ${token}` },
-          },
+          }
         );
         const data = await res.json();
         setMyRecipes(data);
@@ -74,7 +74,7 @@ function ProfilePage() {
 
     const fetchLiked = async () => {
       try {
-        const res = await fetch("http://localhost:5000/api/users/liked", {
+        const res = await fetch(`${process.env.REACT_APP_API_URL}/api/users/liked", {
           headers: { Authorization: `Bearer ${token}` },
         });
         const data = await res.json();
@@ -129,7 +129,7 @@ function ProfilePage() {
                     <Avatar
                       src={
                         user.profileImage?.startsWith("/uploads")
-                          ? `http://localhost:5000${user.profileImage}`
+                          ? `${process.env.REACT_APP_API_URL}${user.profileImage}`
                           : user.profileImage
                       }
                       alt="Profile"

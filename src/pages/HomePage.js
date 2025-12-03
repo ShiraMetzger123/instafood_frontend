@@ -9,7 +9,7 @@ function HomePage() {
   const [error, setError] = useState(null);
 
   useEffect(() => {
-    fetch("http://localhost:5000/api/recipes")
+    fetch(`${process.env.REACT_APP_API_URL}/api/recipes")
       .then((res) => res.json())
       .then((data) => {
         setRecipes(data);

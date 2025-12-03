@@ -46,7 +46,7 @@ function EditProfilePage() {
     const fetchUser = async () => {
       setIsLoading(true);
       try {
-        const res = await fetch("http://localhost:5000/api/users/me", {
+        const res = await fetch(`${process.env.REACT_APP_API_URL}/api/users/me", {
           headers: { Authorization: `Bearer ${token}` },
         });
         const data = await res.json();
@@ -83,7 +83,7 @@ function EditProfilePage() {
   const handleVerifyPassword = async () => {
     try {
       const res = await fetch(
-        "http://localhost:5000/api/users/verify-password",
+        `${process.env.REACT_APP_API_URL}/api/users/verify-password",
         {
           method: "POST",
           headers: {
@@ -91,7 +91,7 @@ function EditProfilePage() {
             Authorization: `Bearer ${token}`,
           },
           body: JSON.stringify({ password: currentPassword }),
-        },
+        }
       );
       const data = await res.json();
       if (res.ok) {
@@ -129,12 +129,12 @@ function EditProfilePage() {
       }
 
       const uploadRes = await fetch(
-        "http://localhost:5000/api/upload?folder=profile_pictures",
+        `${process.env.REACT_APP_API_URL}/api/upload?folder=profile_pictures",
         {
           method: "POST",
           headers: { Authorization: `Bearer ${token}` },
           body: formData,
-        },
+        }
       );
       const uploadData = await uploadRes.json();
 
@@ -145,7 +145,7 @@ function EditProfilePage() {
         profileImage: uploadData.imageUrl || user.profileImage,
       };
 
-      const res = await fetch("http://localhost:5000/api/users/edit", {
+      const res = await fetch(`${process.env.REACT_APP_API_URL}/api/users/edit", {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",
@@ -192,7 +192,7 @@ function EditProfilePage() {
 
     try {
       const res = await fetch(
-        "http://localhost:5000/api/users/change-password",
+        `${process.env.REACT_APP_API_URL}/api/users/change-password",
         {
           method: "PUT",
           headers: {
@@ -200,7 +200,7 @@ function EditProfilePage() {
             Authorization: `Bearer ${token}`,
           },
           body: JSON.stringify({ password: newPassword }),
-        },
+        }
       );
       if (!res.ok) throw new Error();
       showSnackbar({
@@ -293,8 +293,8 @@ function EditProfilePage() {
                             ? previewUrl.startsWith("blob:")
                               ? previewUrl
                               : previewUrl.startsWith("http")
-                                ? previewUrl
-                                : `http://localhost:5000${previewUrl}`
+                              ? previewUrl
+                              : `${process.env.REACT_APP_API_URL}${previewUrl}`
                             : "/default-user.png"
                         }
                         sx={{

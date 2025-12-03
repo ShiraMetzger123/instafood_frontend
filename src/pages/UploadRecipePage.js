@@ -178,7 +178,7 @@ function UploadRecipePage() {
       formData.append("instructions", JSON.stringify(recipe.instructions));
       formData.append("location", location);
 
-      const res = await fetch("http://localhost:5000/api/recipes", {
+      const res = await fetch(`${process.env.REACT_APP_API_URL}/api/recipes", {
         method: "POST",
         headers: { Authorization: `Bearer ${token}` },
         body: formData,

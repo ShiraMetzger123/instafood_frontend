@@ -48,13 +48,17 @@ function RecipePage() {
 
   const getImageUrl = (url) => {
     if (!url) return "/default-user.png";
-    return url.startsWith("http") ? url : `http://localhost:5000${url}`;
+    return url.startsWith("http")
+      ? url
+      : `${process.env.REACT_APP_API_URL}${url}`;
   };
 
   useEffect(() => {
     const fetchRecipe = async () => {
       try {
-        const res = await fetch(`http://localhost:5000/api/recipes/${id}`);
+        const res = await fetch(
+          `${process.env.REACT_APP_API_URL}/api/recipes/${id}`
+        );
         const data = await res.json();
         setRecipe(data);
         console.log("📦 Recipe loaded:", recipe);
@@ -67,7 +71,9 @@ function RecipePage() {
 
     const fetchComments = async () => {
       try {
-        const res = await fetch(`http://localhost:5000/api/comments/${id}`);
+        const res = await fetch(
+          `${process.env.REACT_APP_API_URL}/api/comments/${id}`
+        );
         const data = await res.json();
         setCommentsCount(data.length);
       } catch (err) {
@@ -79,7 +85,7 @@ function RecipePage() {
       if (!userId) return;
       try {
         const res = await fetch(
-          `http://localhost:5000/api/likes/${id}/${userId}`,
+          `${process.env.REACT_APP_API_URL}/api/likes/${id}/${userId}`
         );
         const data = await res.json();
         setLiked(data.liked);
@@ -102,7 +108,7 @@ function RecipePage() {
     }
 
     try {
-      const res = await fetch("http://localhost:5000/api/likes", {
+      const res = await fetch(`${process.env.REACT_APP_API_URL}/api/likes", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -120,7 +126,9 @@ function RecipePage() {
 
   const handleShowLikes = async () => {
     try {
-      const res = await fetch(`http://localhost:5000/api/likes/users/${id}`);
+      const res = await fetch(
+        `${process.env.REACT_APP_API_URL}/api/likes/users/${id}`
+      );
       const data = await res.json();
       setLikeUsers(data.users || []);
       setShowLikes(true);
@@ -405,13 +413,13 @@ function RecipePage() {
                         onConfirm: async () => {
                           try {
                             const res = await fetch(
-                              `http://localhost:5000/api/recipes/${recipe._id}`,
+                              `${process.env.REACT_APP_API_URL}/api/recipes/${recipe._id}`,
                               {
                                 method: "DELETE",
                                 headers: {
                                   Authorization: `Bearer ${token}`,
                                 },
-                              },
+                              }
                             );
 
                             if (res.ok) {

@@ -40,7 +40,7 @@ function RecipeCard({ recipe, uploader = "Anonymous", imageOnly = false }) {
 
   useEffect(() => {
     if (!userId || imageOnly) return;
-    fetch(`http://localhost:5000/api/likes/${recipe._id}/${userId}`)
+    fetch(`${process.env.REACT_APP_API_URL}/api/likes/${recipe._id}/${userId}`)
       .then((res) => res.json())
       .then((data) => setLiked(data.liked))
       .catch(() => {});
@@ -48,7 +48,7 @@ function RecipeCard({ recipe, uploader = "Anonymous", imageOnly = false }) {
 
   useEffect(() => {
     if (imageOnly) return;
-    fetch(`http://localhost:5000/api/comments/${recipe._id}`)
+    fetch(`${process.env.REACT_APP_API_URL}/api/comments/${recipe._id}`)
       .then((res) => res.json())
       .then((data) => setCommentsCount(data.length))
       .catch(() => {});
@@ -57,7 +57,7 @@ function RecipeCard({ recipe, uploader = "Anonymous", imageOnly = false }) {
   const handleLike = async () => {
     if (!token || !userId) return alert("Login required");
     try {
-      const res = await fetch("http://localhost:5000/api/likes", {
+      const res = await fetch(`${process.env.REACT_APP_API_URL}/api/likes", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -76,7 +76,7 @@ function RecipeCard({ recipe, uploader = "Anonymous", imageOnly = false }) {
   const handleShowLikes = async () => {
     try {
       const res = await fetch(
-        `http://localhost:5000/api/likes/users/${recipe._id}`,
+        `${process.env.REACT_APP_API_URL}/api/likes/users/${recipe._id}`
       );
       const data = await res.json();
       setLikeUsers(data.users || []);
@@ -95,7 +95,7 @@ function RecipeCard({ recipe, uploader = "Anonymous", imageOnly = false }) {
       firstFile.endsWith(".avi");
     const url = firstFile.startsWith("http")
       ? firstFile
-      : `http://localhost:5000${firstFile}`;
+      : `${process.env.REACT_APP_API_URL}${firstFile}`;
     return { url, type: isVideo ? "video" : "image" };
   };
 
@@ -212,7 +212,7 @@ function RecipeCard({ recipe, uploader = "Anonymous", imageOnly = false }) {
             <Avatar
               src={
                 recipe.user?.profileImage?.startsWith("/uploads")
-                  ? `http://localhost:5000${recipe.user.profileImage}`
+                  ? `${process.env.REACT_APP_API_URL}${recipe.user.profileImage}`
                   : recipe.user?.profileImage || "/default-user.png"
               }
             />

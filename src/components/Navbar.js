@@ -34,10 +34,10 @@ function Navbar() {
   const [drawerOpen, setDrawerOpen] = React.useState(false);
 
   const [profileImage, setProfileImage] = React.useState(
-    localStorage.getItem("profileImage") || null,
+    localStorage.getItem("profileImage") || null
   );
   const [userName, setUserName] = React.useState(
-    localStorage.getItem("fullName") || "",
+    localStorage.getItem("fullName") || ""
   );
 
   const isActive = (path) => {
@@ -272,7 +272,7 @@ function Navbar() {
                       <Avatar
                         src={
                           profileImage?.startsWith("/uploads")
-                            ? `http://localhost:5000${profileImage}`
+                            ? `${process.env.REACT_APP_API_URL}${profileImage}`
                             : profileImage || "/default-user.png"
                         }
                         sx={{ width: 28, height: 28, mr: 1 }}

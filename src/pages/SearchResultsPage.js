@@ -33,7 +33,7 @@ function SearchResultsPage() {
       (type === "tag" || type === "category" || type === "difficulty") &&
       value
     ) {
-      fetch("http://localhost:5000/api/recipes")
+      fetch(`${process.env.REACT_APP_API_URL}/api/recipes")
         .then((res) => res.json())
         .then((data) => {
           let filtered = [];
@@ -41,25 +41,24 @@ function SearchResultsPage() {
           if (type === "tag") {
             filtered = data.filter((recipe) =>
               recipe.tags?.some(
-                (tag) => tag.toLowerCase() === value.toLowerCase(),
-              ),
+                (tag) => tag.toLowerCase() === value.toLowerCase()
+              )
             );
           } else if (type === "category") {
             filtered = data.filter(
-              (recipe) =>
-                recipe.category?.toLowerCase() === value.toLowerCase(),
+              (recipe) => recipe.category?.toLowerCase() === value.toLowerCase()
             );
           } else if (type === "difficulty") {
             filtered = data.filter(
               (recipe) =>
-                recipe.difficulty?.toLowerCase() === value.toLowerCase(),
+                recipe.difficulty?.toLowerCase() === value.toLowerCase()
             );
           }
 
           setResults(filtered || []);
           const uniqueCategories = [
             ...new Set(
-              filtered.map((recipe) => recipe.category).filter(Boolean),
+              filtered.map((recipe) => recipe.category).filter(Boolean)
             ),
           ];
           setCategories(uniqueCategories);
@@ -72,7 +71,9 @@ function SearchResultsPage() {
           setLoading(false);
         });
     } else if (searchTerm) {
-      fetch(`http://localhost:5000/api/recipes/search?q=${searchTerm}`)
+      fetch(
+        `${process.env.REACT_APP_API_URL}/api/recipes/search?q=${searchTerm}`
+      )
         .then((res) => res.json())
         .then((data) => {
           setResults(data || []);

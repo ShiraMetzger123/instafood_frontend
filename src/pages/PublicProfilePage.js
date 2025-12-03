@@ -37,9 +37,12 @@ function PublicProfilePage() {
 
     const fetchUser = async () => {
       try {
-        const res = await fetch(`http://localhost:5000/api/users/${userId}`, {
-          headers: { Authorization: `Bearer ${token}` },
-        });
+        const res = await fetch(
+          `${process.env.REACT_APP_API_URL}/api/users/${userId}`,
+          {
+            headers: { Authorization: `Bearer ${token}` },
+          }
+        );
         if (!res.ok) throw new Error("Failed to load user profile");
         setUser(await res.json());
       } catch (err) {
@@ -55,10 +58,10 @@ function PublicProfilePage() {
     const fetchRecipes = async () => {
       try {
         const res = await fetch(
-          `http://localhost:5000/api/recipes/users/${userId}`,
+          `${process.env.REACT_APP_API_URL}/api/recipes/users/${userId}`,
           {
             headers: { Authorization: `Bearer ${token}` },
-          },
+          }
         );
         if (!res.ok) throw new Error("Failed to load recipes");
         setRecipes(await res.json());
@@ -119,7 +122,7 @@ function PublicProfilePage() {
                     <Avatar
                       src={
                         user.profileImage?.startsWith("/uploads")
-                          ? `http://localhost:5000${user.profileImage}`
+                          ? `${process.env.REACT_APP_API_URL}${user.profileImage}`
                           : user.profileImage
                       }
                       alt={`${user.firstName} ${user.lastName}`}

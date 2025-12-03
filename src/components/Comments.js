@@ -42,13 +42,15 @@ function CommentSection({ recipeId, onClose }) {
     !url
       ? "/default-user.png"
       : url.startsWith("http")
-        ? url
-        : `http://localhost:5000${url}`;
+      ? url
+      : `${process.env.REACT_APP_API_URL}${url}`;
 
   /* Fetch & build tree -------------------------------------------------- */
   const fetchComments = useCallback(async () => {
     try {
-      const res = await fetch(`http://localhost:5000/api/comments/${recipeId}`);
+      const res = await fetch(
+        `${process.env.REACT_APP_API_URL}/api/comments/${recipeId}`
+      );
       const data = await res.json();
       setComments(buildCommentTree(data));
     } catch (err) {
@@ -84,7 +86,9 @@ function CommentSection({ recipeId, onClose }) {
     }
     try {
       const res = await fetch(
-        `http://localhost:5000/api/comments/${recipeId}${replyingTo ? `/${replyingTo}` : ""}`,
+        `${process.env.REACT_APP_API_URL}/api/comments/${recipeId}${
+          replyingTo ? `/${replyingTo}` : ""
+        }`,
         {
           method: "POST",
           headers: {
@@ -92,7 +96,7 @@ function CommentSection({ recipeId, onClose }) {
             "Content-Type": "application/json",
           },
           body: JSON.stringify({ text: newComment }),
-        },
+        }
       );
       if (res.ok) {
         setNewComment("");
@@ -122,10 +126,13 @@ function CommentSection({ recipeId, onClose }) {
       message: "Are you sure you want to delete this comment?",
       onConfirm: async () => {
         try {
-          const res = await fetch(`http://localhost:5000/api/comments/${id}`, {
-            method: "DELETE",
-            headers: { Authorization: `Bearer ${token}` },
-          });
+          const res = await fetch(
+            `${process.env.REACT_APP_API_URL}/api/comments/${id}`,
+            {
+              method: "DELETE",
+              headers: { Authorization: `Bearer ${token}` },
+            }
+          );
           if (res.ok) {
             showSnackbar({
               message: "Comment deleted successfully",
@@ -160,10 +167,13 @@ function CommentSection({ recipeId, onClose }) {
     }
 
     try {
-      const res = await fetch(`http://localhost:5000/api/comments/like/${id}`, {
-        method: "POST",
-        headers: { Authorization: `Bearer ${token}` },
-      });
+      const res = await fetch(
+        `${process.env.REACT_APP_API_URL}/api/comments/like/${id}`,
+        {
+          method: "POST",
+          headers: { Authorization: `Bearer ${token}` },
+        }
+      );
 
       if (res.ok) {
         fetchComments();

@@ -34,7 +34,7 @@ function LoginPage() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await fetch("http://localhost:5000/api/auth/login", {
+      const response = await fetch(`${process.env.REACT_APP_API_URL}/api/auth/login", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(formData),
@@ -82,7 +82,7 @@ function LoginPage() {
 
       const [firstName, lastName] = fullName.split(" ");
       const response = await fetch(
-        "http://localhost:5000/api/auth/google-login",
+        `${process.env.REACT_APP_API_URL}/api/auth/google-login",
         {
           method: "POST",
           headers: { "Content-Type": "application/json" },
@@ -134,7 +134,7 @@ function LoginPage() {
     user,
   ) => {
     try {
-      const response = await fetch("http://localhost:5000/api/auth/register", {
+      const response = await fetch(`${process.env.REACT_APP_API_URL}/api/auth/register", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({

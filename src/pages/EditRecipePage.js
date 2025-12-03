@@ -44,7 +44,9 @@ function EditRecipePage() {
   useEffect(() => {
     const fetchRecipe = async () => {
       try {
-        const res = await fetch(`http://localhost:5000/api/recipes/${id}`);
+        const res = await fetch(
+          `${process.env.REACT_APP_API_URL}/api/recipes/${id}`
+        );
         if (!res.ok) throw new Error("Failed to fetch recipe");
         const data = await res.json();
         setRecipe({
@@ -129,11 +131,14 @@ function EditRecipePage() {
     newMediaFiles.forEach((file) => formData.append("newMedia", file));
 
     try {
-      const res = await fetch(`http://localhost:5000/api/recipes/${id}`, {
-        method: "PUT",
-        headers: { Authorization: `Bearer ${token}` },
-        body: formData,
-      });
+      const res = await fetch(
+        `${process.env.REACT_APP_API_URL}/api/recipes/${id}`,
+        {
+          method: "PUT",
+          headers: { Authorization: `Bearer ${token}` },
+          body: formData,
+        }
+      );
 
       if (!res.ok) throw new Error("Failed to update recipe");
 
