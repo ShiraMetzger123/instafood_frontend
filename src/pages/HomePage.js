@@ -9,15 +9,13 @@ function HomePage() {
   const [error, setError] = useState(null);
 
   useEffect(() => {
-    fetch(`${process.env.REACT_APP_API_URL}/api/recipes")
+    fetch(`${process.env.REACT_APP_API_URL}/api/recipes`)
       .then((res) => res.json())
       .then((data) => {
         setRecipes(data);
-        setLoading(false);
       })
       .catch((err) => {
-        setError(err.message);
-        setLoading(false);
+        console.error("❌ Failed to fetch recipes", err);
       });
   }, []);
 
