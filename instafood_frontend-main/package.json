@@ -1,0 +1,54 @@
+{
+  "name": "recipes_social_network_frontend",
+  "version": "1.0.0",
+  "description": "Frontend for Recipes Social Network",
+  "main": "src/index.js",
+  "scripts": {
+    "start": "react-scripts --openssl-legacy-provider start",
+    "build": "react-scripts build",
+    "test": "react-scripts test",
+    "eject": "react-scripts eject"
+  },
+  "dependencies": {
+    "@emotion/react": "^11.14.0",
+    "@emotion/styled": "^11.14.0",
+    "@mui/icons-material": "^5.11.0",
+    "@mui/material": "^5.11.0",
+    "firebase": "^11.6.1",
+    "postcss": "^8.5.3",
+    "react": "^18.0.0",
+    "react-dom": "^18.0.0",
+    "react-responsive-carousel": "^3.2.23",
+    "react-router-dom": "^6.0.0",
+    "react-scripts": "^3.0.1",
+    "react-toastify": "^8.2.0",
+    "recipes_social_network_frontend": "file:",
+    "resolve-url-loader": "^5.0.0",
+    "serialize-javascript": "^6.0.2"
+  },
+  "babel": {
+    "presets": [
+      "@babel/preset-env",
+      "@babel/preset-react"
+    ]
+  },
+  "engines": {
+    "node": ">=14.0.0"
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  },
+  "devDependencies": {
+    "babel-loader": "^9.2.1",
+    "webpack": "^5.75.0"
+  }
+}
