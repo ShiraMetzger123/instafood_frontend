@@ -113,10 +113,13 @@ function RegisterPage() {
       Object.entries(formData).forEach(([key, val]) => body.append(key, val));
       if (imageFile) body.append("profileImage", imageFile);
 
-      const response = await fetch(`${process.env.REACT_APP_API_URL}/api/auth/register", {
-        method: "POST",
-        body,
-      });
+      const response = await fetch(
+        (process.env.REACT_APP_API_URL || "/api") + "/auth/register",
+        {
+          method: "POST",
+          body,
+        }
+      );
 
       const data = await response.json();
       if (response.ok) {
@@ -131,11 +134,10 @@ function RegisterPage() {
         navigate("/profile");
       } else {
         showSnackbar({
-      message: "Registration failed: " + (data?.message || "Unknown error"),
-      severity: "error",
-      requireAction: true,
-      });
-
+          message: "Registration failed: " + (data?.message || "Unknown error"),
+          severity: "error",
+          requireAction: true,
+        });
       }
     } catch (error) {
       showSnackbar({
