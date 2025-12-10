@@ -131,10 +131,11 @@ function RegisterPage() {
         navigate("/profile");
       } else {
         showSnackbar({
-          message: `Registration failed: ${data.message}`,
-          severity: "error",
-          requireAction: true,
-        });
+      message: "Registration failed: " + (data?.message || "Unknown error"),
+      severity: "error",
+      requireAction: true,
+      });
+
       }
     } catch (error) {
       showSnackbar({
