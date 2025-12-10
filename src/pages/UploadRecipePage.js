@@ -69,7 +69,7 @@ function UploadRecipePage() {
           const { latitude, longitude } = position.coords;
           try {
             const response = await fetch(
-              `https://maps.googleapis.com/maps/api/geocode/json?latlng=${latitude},${longitude}&key=AIzaSyBZXi0TxIVSgvV-3e3OKjJzDcrluiZsdtg`,
+              `https://maps.googleapis.com/maps/api/geocode/json?latlng=${latitude},${longitude}&key=AIzaSyBZXi0TxIVSgvV-3e3OKjJzDcrluiZsdtg`
             );
             const data = await response.json();
             console.log("🌍 Full Google Maps API response:", data);
@@ -86,7 +86,7 @@ function UploadRecipePage() {
         },
         (error) => {
           console.error("Error getting location:", error);
-        },
+        }
       );
     }
   }, [navigate]);
@@ -178,11 +178,14 @@ function UploadRecipePage() {
       formData.append("instructions", JSON.stringify(recipe.instructions));
       formData.append("location", location);
 
-      const res = await fetch(`${process.env.REACT_APP_API_URL}/api/recipes", {
-        method: "POST",
-        headers: { Authorization: `Bearer ${token}` },
-        body: formData,
-      });
+      const res = await fetch(
+        (process.env.REACT_APP_API_URL || "/api") + "/recipes",
+        {
+          method: "POST",
+          headers: { Authorization: "Bearer " + token },
+          body: formData,
+        }
+      );
 
       if (!res.ok) {
         const errorData = await res.json();
