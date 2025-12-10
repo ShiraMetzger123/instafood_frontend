@@ -34,11 +34,14 @@ function LoginPage() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await fetch(`${process.env.REACT_APP_API_URL}/api/auth/login", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(formData),
-      });
+      const response = await fetch(
+        `${process.env.REACT_APP_API_URL}/api/auth/login`,
+        {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(formData),
+        }
+      );
 
       const data = await response.json();
       if (response.ok) {
@@ -82,12 +85,12 @@ function LoginPage() {
 
       const [firstName, lastName] = fullName.split(" ");
       const response = await fetch(
-        `${process.env.REACT_APP_API_URL}/api/auth/google-login",
+        `${process.env.REACT_APP_API_URL}/api/auth/google-login`,
         {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({ email }),
-        },
+        }
       );
 
       const data = await response.json();
@@ -110,7 +113,7 @@ function LoginPage() {
           firstName,
           lastName,
           profileImage,
-          user,
+          user
         );
       } else {
         throw new Error("Unknown error during Google login");
@@ -131,22 +134,25 @@ function LoginPage() {
     firstName,
     lastName,
     profileImage,
-    user,
+    user
   ) => {
     try {
-      const response = await fetch(`${process.env.REACT_APP_API_URL}/api/auth/register", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          username: email.split("@")[0],
-          firstName: firstName || "First",
-          lastName: lastName || "Last",
-          email,
-          password: user.uid,
-          phone: `google-${user.uid}`,
-          profileImage,
-        }),
-      });
+      const response = await fetch(
+        `${process.env.REACT_APP_API_URL}/api/auth/register`,
+        {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            username: email.split("@")[0],
+            firstName: firstName || "First",
+            lastName: lastName || "Last",
+            email,
+            password: user.uid,
+            phone: `google-${user.uid}`,
+            profileImage,
+          }),
+        }
+      );
 
       const data = await response.json();
 

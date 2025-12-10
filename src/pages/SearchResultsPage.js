@@ -33,7 +33,7 @@ function SearchResultsPage() {
       (type === "tag" || type === "category" || type === "difficulty") &&
       value
     ) {
-      fetch(`${process.env.REACT_APP_API_URL}/api/recipes")
+      fetch(`${process.env.REACT_APP_API_URL}/api/recipes`)
         .then((res) => res.json())
         .then((data) => {
           let filtered = [];

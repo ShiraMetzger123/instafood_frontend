@@ -41,9 +41,12 @@ function ProfilePage() {
 
     const fetchProfile = async () => {
       try {
-        const res = await fetch(`${process.env.REACT_APP_API_URL}/api/users/me", {
-          headers: { Authorization: `Bearer ${token}` },
-        });
+        const res = await fetch(
+          `${process.env.REACT_APP_API_URL}/api/users/me`,
+          {
+            headers: { Authorization: `Bearer ${token}` },
+          }
+        );
         if (!res.ok) throw new Error("Unauthorized or failed to fetch user");
         const data = await res.json();
         setUser(data);
@@ -60,7 +63,7 @@ function ProfilePage() {
     const fetchMyRecipes = async () => {
       try {
         const res = await fetch(
-          `${process.env.REACT_APP_API_URL}/api/recipes/my-recipes",
+          `${process.env.REACT_APP_API_URL}/api/recipes/my-recipes`,
           {
             headers: { Authorization: `Bearer ${token}` },
           }
@@ -74,9 +77,12 @@ function ProfilePage() {
 
     const fetchLiked = async () => {
       try {
-        const res = await fetch(`${process.env.REACT_APP_API_URL}/api/users/liked", {
-          headers: { Authorization: `Bearer ${token}` },
-        });
+        const res = await fetch(
+          `${process.env.REACT_APP_API_URL}/api/users/liked`,
+          {
+            headers: { Authorization: `Bearer ${token}` },
+          }
+        );
         const data = await res.json();
         setLikedRecipes(data.recipes || []);
       } catch (err) {

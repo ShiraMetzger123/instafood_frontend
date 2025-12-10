@@ -28,7 +28,7 @@ function ForYouPage() {
       return;
     }
 
-    fetch(`${process.env.REACT_APP_API_URL}/api/recipes/for-you", {
+    fetch(`${process.env.REACT_APP_API_URL}/api/recipes/for-you`, {
       headers: { Authorization: `Bearer ${token}` },
     })
       .then((res) => res.json())

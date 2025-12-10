@@ -36,7 +36,7 @@ function AdvancedSearchPage() {
 
   const fetchRecipes = async () => {
     try {
-      const res = await fetch(`${process.env.REACT_APP_API_URL}/api/recipes");
+      const res = await fetch(`${process.env.REACT_APP_API_URL}/api/recipes`);
       const data = await res.json();
       setRecipes(data);
     } catch (err) {
@@ -54,7 +54,7 @@ function AdvancedSearchPage() {
               r.description?.toLowerCase().includes(lower) ||
               r.ingredients?.some((ing) => ing.toLowerCase().includes(lower)) ||
               r.tags?.some((tag) => tag.toLowerCase().includes(lower)) ||
-              r.category?.toLowerCase().includes(lower),
+              r.category?.toLowerCase().includes(lower)
           )
         : recipes;
 
@@ -72,7 +72,7 @@ function AdvancedSearchPage() {
       setSearchHistory(history);
       localStorage.setItem("searchHistory", JSON.stringify(history));
 
-      fetch(`${process.env.REACT_APP_API_URL}/api/recipes/search-history", {
+      fetch(`${process.env.REACT_APP_API_URL}/api/recipes/search-history`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

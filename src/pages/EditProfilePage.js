@@ -46,9 +46,12 @@ function EditProfilePage() {
     const fetchUser = async () => {
       setIsLoading(true);
       try {
-        const res = await fetch(`${process.env.REACT_APP_API_URL}/api/users/me", {
-          headers: { Authorization: `Bearer ${token}` },
-        });
+        const res = await fetch(
+          `${process.env.REACT_APP_API_URL}/api/users/me`,
+          {
+            headers: { Authorization: `Bearer ${token}` },
+          }
+        );
         const data = await res.json();
         setUser(data);
         setForm({
@@ -83,7 +86,7 @@ function EditProfilePage() {
   const handleVerifyPassword = async () => {
     try {
       const res = await fetch(
-        `${process.env.REACT_APP_API_URL}/api/users/verify-password",
+        `${process.env.REACT_APP_API_URL}/api/users/verify-password`,
         {
           method: "POST",
           headers: {
@@ -129,7 +132,7 @@ function EditProfilePage() {
       }
 
       const uploadRes = await fetch(
-        `${process.env.REACT_APP_API_URL}/api/upload?folder=profile_pictures",
+        `${process.env.REACT_APP_API_URL}/api/upload?folder=profile_pictures`,
         {
           method: "POST",
           headers: { Authorization: `Bearer ${token}` },
@@ -145,14 +148,17 @@ function EditProfilePage() {
         profileImage: uploadData.imageUrl || user.profileImage,
       };
 
-      const res = await fetch(`${process.env.REACT_APP_API_URL}/api/users/edit", {
-        method: "PUT",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
-        },
-        body: JSON.stringify(profileUpdate),
-      });
+      const res = await fetch(
+        `${process.env.REACT_APP_API_URL}/api/users/edit`,
+        {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+          body: JSON.stringify(profileUpdate),
+        }
+      );
 
       if (!res.ok) throw new Error();
 
@@ -192,7 +198,7 @@ function EditProfilePage() {
 
     try {
       const res = await fetch(
-        `${process.env.REACT_APP_API_URL}/api/users/change-password",
+        `${process.env.REACT_APP_API_URL}/api/users/change-password`,
         {
           method: "PUT",
           headers: {

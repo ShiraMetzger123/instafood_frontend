@@ -57,7 +57,7 @@ function RecipeCard({ recipe, uploader = "Anonymous", imageOnly = false }) {
   const handleLike = async () => {
     if (!token || !userId) return alert("Login required");
     try {
-      const res = await fetch(`${process.env.REACT_APP_API_URL}/api/likes", {
+      const res = await fetch(`${process.env.REACT_APP_API_URL}/api/likes`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
