@@ -1,0 +1,44 @@
+version: '3.8'
+
+services:
+  frontend:
+    build: .
+    ports:
+      - "3000:80"
+    depends_on:
+      - backend
+    environment:
+      - REACT_APP_API_URL=/api
+    networks:
+      - instafood-network
+
+  backend:
+    # Replace with your backend image or build context
+    image: your-backend-image:latest
+    # Or if you have backend locally:
+    # build: ../instafood_backend
+    ports:
+      - "5000:5000"
+    environment:
+      - NODE_ENV=production
+      - MONGODB_URI=mongodb://mongo:27017/instafood
+    depends_on:
+      - mongo
+    networks:
+      - instafood-network
+
+  mongo:
+    image: mongo:5.0
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongo-data:/data/db
+    networks:
+      - instafood-network
+
+volumes:
+  mongo-data:
+
+networks:
+  instafood-network:
+    driver: bridge
